@@ -67,7 +67,8 @@ app.post('/myform', (req, res) => {
 
         existdata.push(formdata);
         fs.writeFileSync(userDataPath, JSON.stringify(existdata, null, 2));
-              res.status(200).send(formdata);
+        
+              res.status(200).send(formpage);
 
              
     } catch (error) {
@@ -122,7 +123,9 @@ app.get('/edit/:itemid',(req,res)=>{
    
     try{
         res.render('form',{name:deletevalu.name,age:deletevalu.age,number:deletevalu.number,email:deletevalu.email})
-        res.send(formpage);
+        
+        const editpage = fs.readFile('views/form.ejs','utf-8')
+        res.send(editpage);
 
     }
     catch{

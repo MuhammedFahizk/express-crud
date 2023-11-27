@@ -3,6 +3,7 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 const { v4: uuidv4 } = require('uuid');
 const path = require('path');
+const { error } = require('console');
 
 
 const app = express();
@@ -16,7 +17,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 const indexpage = fs.readFileSync('views/index.ejs', 'utf-8');
 const userDataPath = 'Data/userdata.json'
-const formpage = fs.readFileSync('form.html','utf-8')
+const formpage = fs.readFileSync('enterform.html','utf-8')
 const datajson = JSON.parse(fs.readFileSync(userDataPath, 'utf-8'));
 
 
@@ -41,14 +42,18 @@ app.get('/', (req, res) => {
     }
 });
 app.get('/form', (req, res) => {
-    res.status(200).send(formpage);
-});
+  res.status(200).send(formpage);
+
+ })
+
+
 
 app.post('/myform', (req, res) => {
     try {
         const formdata = req.body;
         const id = uuidv4();
         formdata.id = id;
+        formdata.eid = id;
 
 
         let existdata = [];
@@ -62,7 +67,9 @@ app.post('/myform', (req, res) => {
 
         existdata.push(formdata);
         fs.writeFileSync(userDataPath, JSON.stringify(existdata, null, 2));
-        res.status(200).send(formpage);
+              res.status(200).send(formdata);
+
+             
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
@@ -107,6 +114,24 @@ app.delete('/deleteItem/:itemId', async (req, res) => {
     }
     
 });
+app.get('/edit/:itemid',(req,res)=>{
+    const id =req.params.itemid
+    const datauser = fs.readFileSync('Data/userdata.json', 'utf-8');
+    let deletevalu = JSON.parse(datauser);
+    deletevalu = deletevalu.find((a) => a.id === id)
+   
+    try{
+        res.render('form',{name:deletevalu.name,age:deletevalu.age,number:deletevalu.number,email:deletevalu.email})
+        res.send(formpage);
+
+    }
+    catch{
+    }
+    
+
+
+})
+
 
 
 

@@ -176,6 +176,8 @@ app.patch('/updateitem/:itemId', (req, res) => {
         console.error(err);
         res.status(500).json({ message: 'Internal Server Error' });
     }
+    res.redirect('/home'); 
+
 });
 
 

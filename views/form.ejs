@@ -33,7 +33,7 @@
 
                 <div class="col-md-6 col-12"> 
                               <h1 class="text-start ms-5 text-black  display-6 py-3" >Edit Details</h1>
-                              <form action="" class="px-5 text-black" method='POST' >
+                              <form class="px-5 text-black" >
 
                                 <h6 id="nameerror" class="mt-2">Name</h6>
 
@@ -53,7 +53,7 @@
 
                                 <div class="row col-12 ms-0  my-4 ">
 
-                                    <button type="submit" id="" onclick="updateItem('<%= id %>')"  class="  col-md-7 col-12 border-0 p-2   rounded  my-0" style="  box-shadow: 10px 10px rgb(4, 4, 4);"> UPDATE</button>
+                                    <button type="button" id="" onclick="return  updateItem('<%= id %>')"  class="  col-md-7 col-12 border-0 p-2   rounded  my-0" style="  box-shadow: 10px 10px rgb(4, 4, 4);"> UPDATE</button>
                                     
                                 </div> 
 
@@ -75,8 +75,12 @@
 
     </div>
     <script>
+        
       async function updateItem(itemId) {
-    const name = document.getElementById('name').value;
+
+        if(validateform()){
+            
+            const name = document.getElementById('name').value;
     const age = document.getElementById('age').value;
     const number = document.getElementById('number').value;
     const email = document.getElementById('email').value;
@@ -106,6 +110,12 @@
     } catch (error) {
         console.error('Error:', error);
     }
+    return true
+        }
+        else{
+            return false
+        }
+   
 }
 
 

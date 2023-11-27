@@ -50,13 +50,13 @@
                         <td class="col-md-4 col-12 mt-2"><%= user.number %></td>
                         <td class="col-md-2 col-12 mt-2"><%= user.email %></td>
                         <td class="row col-md-3 col-12">
-                            <form action="/edit/<%= user.id %>" method="PUT" class="col-6">
+                            <form action="/edit/<%= user.eid %>" method="PUT" class="col-6">
                                 <button class="col-md-12 col-12 ms-1-0 p-1 text-6 p-1 my-1 border rounded">
                                     Edit
                                 </button>
                             </form>
                             <form id="deleteForm" class="col-6">
-                                <button type="button" onclick="deleteItem('<%= user.eid %>')" class="col-md-12 col-12 m-0 text-6 p-0 p-1 my-1 border rounded">
+                                <button type="button" onclick="deleteItem('<%= user.id %>')" class="col-md-12 col-12 m-0 text-6 p-0 p-1 my-1 border rounded">
                                     Delete
                                 </button>
                             </form>

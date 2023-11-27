@@ -31,9 +31,9 @@ app.get('/', (req, res) => {
         
         fs.readFileSync('views/update.ejs','utf-8',(err,data)=>{
         res.render('index',{content:data})
+        res.send(indexpage)
 
         })
-        res.send(indexpage)
         
     } catch (error) {
         console.error(error);
@@ -85,6 +85,27 @@ app.get('/home', (req, res) => {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
+});
+app.delete('/deleteItem/:itemId', async (req, res) => {
+    const id = req.params.itemId;
+    try {
+        // Read the JSON data from file
+        const datauser = fs.readFileSync('Data/userdata.json', 'utf-8');
+        let deletevalu = JSON.parse(datauser);
+
+
+        // Remove the element with the specified id from deletevalu
+        deletevalu = deletevalu.filter((a) => a.id != id)
+        console.log(deletevalu)
+
+        // Write the updated data back to file
+        fs.writeFileSync('Data/userdata.json', JSON.stringify(deletevalu, null, 2), 'utf-8');
+        res.send(indexpage)
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+    
 });
 
 

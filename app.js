@@ -9,9 +9,9 @@ const { error } = require('console');
 const app = express();
 const port = 3000;
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -122,7 +122,7 @@ app.get('/edit/:itemid',(req,res)=>{
     deletevalu = deletevalu.find((a) => a.id === id)
    
     try{
-        res.render('form',{name:deletevalu.name,age:deletevalu.age,number:deletevalu.number,email:deletevalu.email})
+        res.render('form',{name:deletevalu.name,age:deletevalu.age,number:deletevalu.number,email:deletevalu.email,id:deletevalu.id})
         
         const editpage = fs.readFile('views/form.ejs','utf-8')
         res.send(editpage);
@@ -134,6 +134,52 @@ app.get('/edit/:itemid',(req,res)=>{
 
 
 })
+
+
+app.patch('/updateitem/:itemId', (req, res) => {
+    const id = req.params.itemId;
+    console.log(req.body); // Log the request body
+
+    let formdata=[]
+    formdata = req.body
+    console.log(formdata)
+
+
+    try {
+        // Read the JSON data from file
+        const datauser = fs.readFileSync('Data/userdata.json', 'utf-8');
+
+        let editjson = []
+        editjson = JSON.parse(datauser);
+
+
+        // Find the index of the item with the specified id
+        const editIndex = editjson.findIndex((item) => item.id === id);
+
+        // Check if the item with the specified id exists
+
+        if (editIndex !== -1) {
+            // Update the item with the new data
+
+            editjson[editIndex] = { ...editjson[editIndex], ...formdata };
+
+            // Write the updated data back to the file
+            fs.writeFileSync('Data/userdata.json', JSON.stringify(editjson, null, 2), 'utf-8');
+
+            // Send a success JSON response
+            res.status(200).json({ message: 'Item updated successfully' });
+        } else {
+            // Send a not found JSON response if the item doesn't exist
+            res.status(404).json({ message: 'Item not found' });
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+
+// ... (your existing code)
 
 
 

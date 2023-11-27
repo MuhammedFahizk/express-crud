@@ -53,7 +53,7 @@
 
                                 <div class="row col-12 ms-0  my-4 ">
 
-                                    <button type="submit" id=""   class="  col-md-7 col-12 border-0 p-2   rounded  my-0" style="  box-shadow: 10px 10px rgb(4, 4, 4);"> UPDATE</button>
+                                    <button type="submit" id="" onclick="updateItem('<%= id %>')"  class="  col-md-7 col-12 border-0 p-2   rounded  my-0" style="  box-shadow: 10px 10px rgb(4, 4, 4);"> UPDATE</button>
                                     
                                 </div> 
 
@@ -75,6 +75,40 @@
 
     </div>
     <script>
+      async function updateItem(itemId) {
+    const name = document.getElementById('name').value;
+    const age = document.getElementById('age').value;
+    const number = document.getElementById('number').value;
+    const email = document.getElementById('email').value;
+
+    const data = {
+        name: name,
+        age: age,
+        number: number,
+        email: email,
+    };
+
+    try {
+        const response = await fetch(`/updateitem/${encodeURIComponent(itemId)}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data), // Include the data in the request body
+        });
+
+        if (response.ok) {
+            window.location.href = '/home';
+        } else {
+            const responseData = await response.json();
+            alert(`Error: ${responseData.message}`);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+
 
         function validateform(){
              

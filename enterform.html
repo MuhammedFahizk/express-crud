@@ -33,7 +33,7 @@
 
                 <div class="col-md-6 col-12"> 
                               <h1 class="text-start ms-5 text-black  display-6 py-3" >Enter Details</h1>
-                              <form action="/myform" class="px-5 text-black" method='POST' >
+                              <form  class="px-5 text-black" >
 
                                 <h6 id="nameerror" class="mt-2">Name</h6>
 
@@ -53,7 +53,7 @@
 
                                 <div class="row col-12 ms-0  my-4 ">
 
-                                    <button type="submit" id=""   class="  col-md-7 col-12 border-0 p-2   rounded  my-0" style="  box-shadow: 10px 10px rgb(4, 4, 4);"> SUBMIT</button>
+                                    <button type="submit" onclick="return additem(event)" id=""   class="  col-md-7 col-12 border-0 p-2   rounded  my-0" style="  box-shadow: 10px 10px rgb(4, 4, 4);"> SUBMIT</button>
                                     
                                 </div> 
 
@@ -75,7 +75,46 @@
 
     </div>
     <script>
+    
+    async function additem(event) {
+        event.preventDefault(); // prevent default form submission
 
+        if (validateform()) {
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const number = document.getElementById('number').value;
+            const email = document.getElementById('email').value;
+
+            const data = {
+                name: name,
+                age: age,
+                number: number,
+                email: email,
+            };
+
+            try {
+                const response = await fetch(`/myform`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                if (response.ok) {
+                    window.location.href = '/form';
+                } else {
+                    const responseData = await response.json();
+                    alert(`Error: ${responseData.message}`);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
         function validateform(){
              
             const username=document.getElementById('name')
@@ -108,6 +147,7 @@
 
             }else if(isNaN(age)){
                 ageerror.innerHTML=(`<span style="color:red">Age Must be Number *<span>`)
+                    return false
 
             }
             else{
@@ -115,9 +155,9 @@
             }
             if(num===''){
 
-                return false
 
                 numbererror.innerHTML=(`<span style="color:red">Enter Number *<span>`)
+                    return false
 
             }
              else if(!/^\d{10}$/.test(num)){
@@ -143,7 +183,7 @@
     }
 }
 
-return true;  // Add this line to prevent form submission if email is valid
+return true;  
   
         }
 

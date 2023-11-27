@@ -11,28 +11,32 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.json());
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 const indexpage = fs.readFileSync('views/index.ejs', 'utf-8');
 const userDataPath = 'Data/userdata.json'
 const formpage = fs.readFileSync('form.html','utf-8')
 const datajson = JSON.parse(fs.readFileSync(userDataPath, 'utf-8'));
 
-let adddata = ()=>{
-    let outpur = datajson.map((item)=>{
-        res.render('update', { name: item.name, age: item.age, number: item.number, email: item.email, id: item.id });
 
-    })
-}
 
 
 app.get('/', (req, res) => {
     try {
-       
-        let dataadd = indexpage
-        res.status(200).send(dataadd);
+        const datafile = fs.readFileSync(userDataPath, 'utf-8');
+        let existdata = JSON.parse(datafile);
+
+        res.render('update', { users: existdata });
+        
+        fs.readFileSync('views/update.ejs','utf-8',(err,data)=>{
+        res.render('index',{content:data})
+
+        })
+        res.send(indexpage)
+        
     } catch (error) {
         console.error(error);
-        res.send(err)
         res.status(500).send('Internal Server Error');
     }
 });
@@ -64,11 +68,26 @@ app.post('/myform', (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
-app.get ('/home',(req,res)=>{
-    res.render('index', { content: adddata });
-    res.send(indexpage)
+app.get('/home', (req, res) => {
+    try {
+        const datafile = fs.readFileSync(userDataPath, 'utf-8');
+        let existdata = JSON.parse(datafile);
 
-})
+        res.render('update', { users: existdata });
+        
+        fs.readFileSync('views/update.ejs','utf-8',(err,data)=>{
+        res.render('index',{content:data})
+        res.send(indexpage)
+
+        })
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
 
 
 app.listen(port, () => {

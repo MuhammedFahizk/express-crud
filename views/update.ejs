@@ -21,7 +21,7 @@
         }
 
         button {
-            background-color:orangered;
+            /* background-color:orangered; */
             color: white;
         }
     </style>
@@ -38,25 +38,25 @@
                    
                     <tr class="row p-3 d-none col-12   d-md-block text-center ms-2  ">
                         <td class="col-md-3 col-12 mt-2">Name</td>
-                        <td class="col-md-1 col-12 mt-2 ps-3">Age</td>
-                        <td class="col-md-3 col-12 mt-2">Email</td>
-                        <td class="col-md-2 col-12 mt-2">Number</td>
+                        <td class="col-md-1 col-12 mt-2 ps-4 pe-2">Age</td>
+                        <td class="col-md-4 col-12 mt-2 ps-5 ">Email</td>
+                        <td class="col-md-2 col-12 mt-2 ps-5">Number</td>
                         <th class="col-md-1 col-12"></th>
                     </tr>
                     <% users.forEach(user => { %>
-                    <tr class="row border border-2 border-black rounded-2 ms-2 my-1 text-start text-md-center ">
-                        <td class="col-md-3 col-12 mt-2"><%= user.name %></td>
-                        <td class="col-md-1 col-12 mt-2"><%= user.age %></td>
-                        <td class="col-md-3 col-12 mt-2"><%= user.email %></td>
-                        <td class="col-md-2 col-12 mt-2"><%= user.number %></td>
-                        <td class="row col-md-3 col-12">
-                            <form action="/edit/<%= user.eid %>" method="GET" class="col-6">
-                                <button class="col-md-12 col-12 ms-1-0 p-1 text-6 p-1 my-1 border rounded">
+                    <tr class="row border border-2 border-black rounded-2 ms-2 my-1 text-start text-md-center  ">
+                        <td class="col-md-3 col-12 mt-2 pt-4"><%= user.name %></td>
+                        <td class="col-md-1 col-12 mt-2 pt-4"><%= user.age %></td>
+                        <td class="col-md-4 col-12 mt-2 pt-4"><%= user.email %></td>
+                        <td class="col-md-2 col-12 mt-2 pt-4 "><%= user.number %></td>
+                        <td class="row col-md-2 col-12">
+                            <form action="/edit/<%= user.eid %>" method="GET" class="col-12">
+                                <button class="col-md-12 col-12 ms-1-0 p-1 text-6 p-1 my-1 border rounded bg-success">
                                     Edit
                                 </button>
                             </form>
-                            <form id="deleteForm" class="col-6">
-                                <button type="button" onclick="deleteItem('<%= user.id %>')" class="col-md-12 col-12 m-0 text-6 p-0 p-1 my-1 border rounded">
+                            <form id="deleteForm" class="col-12">
+                                <button type="button" onclick="deleteItem('<%= user.id %>')" class="col-md-12 col-12 m-0 text-6 p-0 p-1 my-1 border rounded bg-danger">
                                     Delete
                                 </button>
                             </form>
@@ -71,8 +71,8 @@
 
     <form action="form" method="GET">
         <div class="col-12">
-            <div class="col-12 text-center p-5 ">
-                <button type="submit"  class="mt-2 border-0 display-6 fs-4 rounded-1 p-2 px-5" style="  box-shadow: 8px 8px rgb(4, 4, 4);">Add user</button>
+            <div class="col-12 text-center p-3 ">
+                <button type="submit"  class="mt-2 border-0 display-6 fs-4 rounded-1 p-2 px-5 bg-success" >Add user</button>
            </div>
         </div>
 

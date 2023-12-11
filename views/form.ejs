@@ -47,6 +47,10 @@
 
                                 <input type="text" value="<%= number %>" name="number" id="number" class="col-12 col-md-7 py-2 rounded border-1 border-black"style="  box-shadow: 10px 10px rgb(4, 4, 4);">
 
+                                <h6 id="codeerror"  class="mt-2">Contry Code</h6>
+
+                                <input type="text" value="<%= code %>" name="code" id="code" class="col-12 col-md-7 py-2 rounded border-1 border-black"style="  box-shadow: 10px 10px rgb(4, 4, 4);">
+
                                 <h6 id="emaileerror"  class="mt-2"> Email</h6>
 
                                 <input type="text" value="<%= email %>" id="email" name="email" class="col-12 col-md-7 py-2 rounded  border-1 border-black" style="  box-shadow: 10px 10px rgb(4, 4, 4);">
@@ -84,12 +88,15 @@
     const age = document.getElementById('age').value;
     const number = document.getElementById('number').value;
     const email = document.getElementById('email').value;
+    const code = document.getElementById('code').value;
+
 
     const data = {
         name: name,
         age: age,
         number: number,
         email: email,
+        code:code
     };
 
     try {
@@ -134,6 +141,10 @@
             const useremail=document.getElementById('email')
             const email=useremail.value
             const emailerror =document.getElementById('emaileerror')
+            const usercode=document.getElementById('code')
+            const code=usercode.value
+            const codeerror =document.getElementById('codeerror')
+
 
 
             if(name === ''){
@@ -175,6 +186,23 @@
             
 
           }
+          
+        
+          if(code===''){
+
+
+            codeerror.innerHTML=(`<span style="color:red">Enter Contry Code *<span>`)
+                return false
+
+            }
+            else if(!/^\d+$/.test(code)){
+            codeerror.innerHTML=(`<span style="color:red">Enter  Number only *<span>`)
+            return false
+
+            }else{
+            codeerror.innerHTML=('Contry Code')
+
+
          const emailptn = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
          if (email.trim() === '') {
             emailerror.innerHTML = (`<span style="color:red">Enter Valid Email *</span>`);
@@ -192,6 +220,7 @@
     return true;  
 
 }
+        }
   
         
 

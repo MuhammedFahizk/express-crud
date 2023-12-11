@@ -33,7 +33,7 @@
 
         <div class="card">
             <div class="card-body">
-                <table class=" row col-12 col-md-12  display-md-6 fs-md-4 fs-4 text-center   ">
+                <table class=" row col-12 col-md-12  display-md-6 fs-md-4 fs-5 text-center   ">
                   <tbody class="col-12">
                    
                     <tr class="row p-3 d-none col-12   d-md-block text-center ms-2  ">
@@ -47,8 +47,10 @@
                     <tr class="row border border-2 border-black rounded-2 ms-2 my-1 text-start text-md-center  ">
                         <td class="col-md-3 col-12 mt-2 pt-4"><%= user.name %></td>
                         <td class="col-md-1 col-12 mt-2 pt-4"><%= user.age %></td>
-                        <td class="col-md-4 col-12 mt-2 pt-4"><%= user.email %></td>
-                        <td class="col-md-2 col-12 mt-2 pt-4 "><%= user.number %></td>
+                        <td class="col-md-3 col-12 mt-2 pt-4"><%= user.email %></td>
+                        <td class="col-md-3 col-12 mt-2 pt-4 "><%= user.number %></td>
+                        <!-- <td class=" col-12 mt-2 pt-4 "><%= user.code %></td> -->
+
                         <td class="row col-md-2 col-12">
                             <form action="/edit/<%= user.eid %>" method="GET" class="col-12">
                                 <button class="col-md-12 col-12 ms-1-0 p-1 text-6 p-1 my-1 border rounded bg-success">
